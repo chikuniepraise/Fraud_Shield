@@ -17,24 +17,9 @@ These assumptions include:
 
 4. **Data Preprocessing**: Before the data was fed into the machine learning models, the data pretreatment pipeline included stages such as scaling, feature engineering, and data purification.
 
-5. **Model Evaluation**: Model performance was evaluated using standard metrics like accuracy, precision, recall, and F1-score. 
+5. **Model Evaluation**: Model performance was evaluated using standard metrics like scikit learn, accuracy, precision, recall. 
 
 6. **Deployment**: This project focuses on model development, and this is showcased on a website ` `
 
 7. **Visualization**: Visualization was done using Tableau.
-
-## Getting Started
-
-Follow these steps to get the project up and running:
-
-1. Clone this repository to your local machine using `git clone https://github.com/chikuniepraise/Fraud_Shield.git`.
-
-2. Install the required dependencies
-
-3. Download the sample dataset and place it in the designated data folder.
-
-4. Open and run python.
-
-5. The deployment is on  ``
-
-
+8. Scikit learn, Hadoop, Apache Spark, Impala was used for the analysis.
