@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fraud SHIELD</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <style>
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
+
+ 
+  </style>
+</head>
+
+<body>
+  <!-- Add success and failure animation elements -->
+ 
+  <section class="mb-0" style="background-color: #eee; ">
+    <div class="container pt-5">
+      <div class="card">
+        <div class="card-body">
+          <div class="row d-flex justify-content-center pb-5">
+            <div class="col-md-7 col-xl-5 mb-4 mb-md-0">
+              <div class="py-4 d-flex flex-row">
+                <h5><span class="far fa-check-square pe-2"></span><b>FRAUDSHIELD</b> |</h5>
+                <span class="ps-2">Pay</span>
+              </div>
+
+
+              <form class="pb-3" id="cardOptions">
+
+              </form>
+              <div id="successAnimation" class="text-success" style="display: none;">
+                <i class="fas fa-check-circle fa-5x"></i>
+                <p>Payment Successful! no fraudulent activity detected</p>
+              </div>
+              <div id="failureAnimation" class="text-danger" style="display: none;">
+                <i class="fas fa-times-circle fa-5x"></i>
+                <p>Payment Failed! might be a fraud. please contact your card issuer</p>
+              </div>
+              <input type="button" id="checkoutButton" value="Checkout"
+                class="btn btn-primary btn-sm btn-block btn-lg" />
+              <div id="loadingIndicator" style="display: none;">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-5 col-xl-4 offset-xl-1">
+
+              <div class="rounded d-flex flex-column p-2" style="background-color: #f8f9fa;">
+                <div class="p-2 me-3">
+                  <h4>Order Recap</h4>
+                </div>
+                <div class="p-2 d-flex">
+                  <div class="col-8">Tax</div>
+                  <div class="ms-auto"><input id="taxAmount" class="form-control border-dark" type="number"
+                      value="5.00"></div>
+                </div>
+                <div class="p-2 d-flex">
+                  <div class="col-8">Copayment</div>
+                  <div class="ms-auto"><input id="copaymentAmount" class="form-control border-dark" type="number"
+                      value="40.00"></div>
+                </div>
+                <div class="border-top px-2 mx-2"></div>
+                <div class="p-2 d-flex pt-3">
+                  <div class="col-8">Total Deductible, Coinsurance, and Copay</div>
+                  <div class="ms-auto">$40.00</div>
+                </div>
+
+                <div class="border-top px-2 mx-2"></div>
+                <div class="p-2 d-flex pt-3">
+                  <div class="col-8"><b>Total</b></div>
+                  <div class="ms-auto"><b class="text-success" id="totalAmount">$85.00</b></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="mt-0" style="background-color: #eee; min-height: 100vh;">
+    <div class="container pt-2">
+      <div id="tableauViz" style="width: 100%; height: 1000px;">
+
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
+
+<script>
+  var tamt = 85;
+  var cardDetails = [
+    { type: "Visa Debit Card", number: "4242424242424242", cvc: 234, exdate: "8/24", zipcode: "00501", creditsccore: "60", V1: -1.3598071336738, V2: -0.0727811733098497, V3: 2.53634673796914, V4: 1.37815522427443, V5: -0.338320769942518, V6: 0.462387777762292, V7: 0.239598554061257, V8: 0.0986979012610507, V9: 0.363786969611213, V10: 0.0907941719789316, V11: -0.551599533260813, V12: -0.617800855762348, V13: -0.991389847235408, V14: -0.311169353699879, V15: 1.46817697209427, V16: -0.470400525259478, V17: 0.207971241929242, V18: 0.0257905801985591, V19: 0.403992960255733, V20: 0.251412098239705, V21: -0.018306777944153, V22: 0.277837575558899, V23: -0.110473910188767, V24: 0.0669280749146731, V25: 0.128539358273528, V26: -0.189114843888824, V27: 0.133558376740387, V28: -0.0210530534538215 },
+    { type: "Mastercard", number: "7292689167289022", cvc: 567, exdate: "5/24", zipcode: "00501", creditsccore: "60", V1: -2.3122265423263, V2: 1.95199201064158, V3: -1.60985073229769, V4: 3.9979055875468, V5: -0.522187864667764, V6: -1.42654531920595, V7: -2.53738730624579, V8: 1.39165724829804, V9: -2.77008927719433, V10: -2.77227214465915, V11: 3.20203320709635, V12: -2.89990738849473, V13: -0.595221881324605, V14: -4.28925378244217, V15: 0.389724120274487, V16: -1.14074717980657, V17: -2.83005567450437, V18: -0.0168224681808257, V19: 0.416955705037907, V20: 0.126910559061474, V21: 0.517232370861764, V22: -0.0350493686052974, V23: -0.465211076182388, V24: 0.320198198514526, V25: 0.0445191674731724, V26: 0.177839798284401, V27: 0.261145002567677, V28: -0.143275874698919 },
+    { type: "Mastercard", number: "9283675692783467", cvc: 767, exdate: "8/24", zipcode: "44501", creditsccore: "10", V1: 0.173200432066893, V2: -1.82334605633731, V3: 0.307208485073906, V4: 1.34269066716454, V5: -1.35811071835025, V6: -0.13694369371045, V7: 0.355662814534786, V8: -0.159310859074556, V9: 0.854919118424459, V10: -0.581898524775061, V11: -0.898873062622041, V12: 0.847338394441346, V13: 0.407891310254812, V14: -0.449137192407262, V15: -0.873602374115997, V16: -0.431307453048394, V17: 0.249964708713826, V18: -0.582009346017632, V19: 0.188219469620624, V20: 0.986324948413476, V21: 0.182255068881166, V22: -0.327555420476004, V23: -0.536358775337424, V24: 0.507572678791826, V25: 0.331852850262196, V26: 0.469279934128065, V27: -0.102721494582232, V28: 0.106900915235956 },
+  ];
+  var selectedCardIndex = 0; // Default to the first card
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    var loadingIndicator = document.getElementById("loadingIndicator");
+
+    renderCardOptions();
+    var textInputs = document.querySelectorAll("input[type='number']");
+
+    textInputs.forEach(function (input) {
+      input.addEventListener("input", function () {
+        console.log('inputes');
+        updateTotal();
+      });
+    });
+    // Add event listeners to radio buttons
+    var radioButtons = document.querySelectorAll('input[name="radioNoLabel"]');
+    radioButtons.forEach(function (radio, index) {
+      radio.addEventListener("change", function () {
+        selectedCardIndex = index;
+      });
+    });
+    var checkoutButton = document.getElementById("checkoutButton");
+    checkoutButton.addEventListener("click", function () {
+      loadingIndicator.style.display = "block"; // Show loading indicator
+
+      // Get the selected card details
+      var selectedCard = cardDetails[selectedCardIndex];
+
+      // Prepare data to send to API
+      var dataToSend = cardDetails[selectedCardIndex];
+      dataToSend['Amount'] = tamt;
+      dataToSend = JSON.stringify(dataToSend);
+
+      // Replace with your API endpoint
+      var apiEndpoint = "http://127.0.0.1:5000/cardpred";
+      var d=0;
+      // Send data to API using fetch
+      fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: dataToSend,
+      })
+        .then(response => response.text())
+        .then(responseData => {
+          // Handle API response if needed
+          console.log("API response:", responseData);
+          if (responseData == 0) {
+            document.getElementById("failureAnimation").style.display = "none";
+            document.getElementById("successAnimation").style.display = "block";
+ 
+          } else if (responseData == 1) {
+            document.getElementById("successAnimation").style.display = "none";
+            document.getElementById("failureAnimation").style.display = "block";
+        
+          }
+        }).catch(error => {
+          // Handle errors
+          console.error('Fetch error:', error);
+        }).finally(() => {
+          loadingIndicator.style.display = "none"; // Hide loading indicator
+        });
+
+    });
+
+    // ... (other code) ...
+
+    // Initialize Tableau visualization
+    initializeViz();
+
+  });
+  function updateTotal() {
+    var taxAmount = parseFloat(document.getElementById("taxAmount").value);
+    var copaymentAmount = parseFloat(document.getElementById("copaymentAmount").value);
+    var totalDeductibleAmount = 40;
+
+    var totalAmount = taxAmount + copaymentAmount + totalDeductibleAmount;
+    tamt = totalAmount;
+    document.getElementById("totalAmount").textContent = totalAmount.toFixed(2);
+  }
+  function initializeViz() {
+    var placeholderDiv = document.getElementById("tableauViz");
+    var url = "https://public.tableau.com/views/FraudShield/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link";
+    var options = {
+      width: placeholderDiv.offsetWidth,
+      height: placeholderDiv.offsetHeight,
+      hideTabs: true,
+      hideToolbar: true,
+      onFirstInteractive: function () {
+        workbook = viz.getWorkbook();
+        activeSheet = workbook.getActiveSheet();
+      }
+    };
+    viz = new tableau.Viz(placeholderDiv, url, options);
+  }
+
+  function renderCardOptions() {
+    var cardOptionsHtml = "";
+    cardDetails.forEach(function (card, index) {
+      var checked = index === selectedCardIndex ? "checked" : "";
+      cardOptionsHtml += `
+        <div class="d-flex flex-row ">
+          <div class="d-flex align-items-center pe-2">
+            <input class="form-check-input border-dark" type="radio" name="radioNoLabel" id="radioNoLabel${index}" value=""
+              aria-label="..." ${checked} />
+          </div>
+          <div class="rounded border d-flex w-100 p-3 align-items-center">
+            <p class="mb-0">
+              <i class="${card.type == "Visa Debit Card" ? "fab fa-cc-visa" : "fab fa-cc-mastercard"} fa-lg text-primary pe-2"></i>${card.type}
+            </p>
+            <div class="ms-auto">************${card.number.slice(-4)}</div>
+          </div>
+        </div>
+        <div style="font-size:11px; font-weight:bolder;" class="text-primary">
+          <span>Zip ${card.zipcode} </span><span style="float:right;">Credit score ${card.creditsccore}%</span></div>
+ 
+      `;
+    });
+    document.getElementById("cardOptions").innerHTML = cardOptionsHtml;
+  }
+
+</script>
