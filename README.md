@@ -19,7 +19,7 @@ These assumptions include:
 
 5. **Model Evaluation**: Model performance was evaluated using standard metrics like scikit learn, accuracy, precision, recall. 
 
-6. **Deployment**: This project focuses on model development, and this is showcased on a website ` `
+6. **Deployment**: This project focuses on model development, it is showcased on a blog `https://frauddetectionbigdata.blogspot.com/2023/08/fraud-shield-against-credit-card-fraud.html?m=1 `
 
 7. **Visualization**: Visualization was done using Tableau.
 8. Scikit learn, Hadoop, Apache Spark, Impala was used for the analysis.
