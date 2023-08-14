@@ -3,7 +3,7 @@
 This repository has the code and materials for the Fraud Shield project, which aims to create a fraud detection and prevention system.
 
 ![Screenshot_13](https://github.com/chikuniepraise/Fraud_Shield/assets/56577750/5c3052b4-29be-4d12-9e88-df0b7e67efd3)
-[![Video]([https://example.com/thumbnail.jpg](https://github.com/chikuniepraise/Fraud_Shield/assets/56577750/5c3052b4-29be-4d12-9e88-df0b7e67efd3))]([https://drive.google.com/file/d/VIDEO_ID/view](https://www.youtube.com/watch?v=SGIDkP4HZAY))
+[![Video]]([https://drive.google.com/file/d/VIDEO_ID/view](https://www.youtube.com/watch?v=SGIDkP4HZAY))
 
 
 ## Assumptions
