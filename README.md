@@ -2,6 +2,7 @@
 
 This repository has the code and materials for the Fraud Shield project, which aims to create a fraud detection and prevention system.
 
+<iframe width="560" height="315" src="https://youtu.be/SGIDkP4HZAY" frameborder="0" allowfullscreen></iframe>
 
 ## Assumptions
 
